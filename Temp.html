@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<p id="rs"></p>
+<script>
+  function temperature (cel){
+    this.celsius = cel;
+    this.changeToF = function (){
+      return (1.8*cel)+32;
+    }
+    this.changeToK = function (){
+      return cel+273.15;
+    }
+  }
+  let temp = new temperature(25);
+  document.getElementById("rs").innerHTML = "Nhiệt độ được chuyển sang độ F = " + temp.changeToF() + "<br>" + "Nhiệt độ được chuyển sang độ K = " +temp.changeToK();
+</script>
+</body>
+</html>
