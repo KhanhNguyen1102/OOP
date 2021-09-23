@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<canvas id="myCanvas" width="400" height="300" ></canvas>
+<p id="rs"></p>
+<script>
+
+    function rectangle(width,height){
+        this.width=width ;
+        this.height =height;
+        this.getArea = function (){
+            return this.width * this.height;
+        }
+        this.getPerimeter = function (){
+            return (this.width + this.height)*2;
+        }
+        this.drawRectangle = function (){
+            let myCanvas = document.getElementById("myCanvas");
+            let myRectangle = myCanvas.getContext("2d");
+            myRectangle.beginPath();
+            myRectangle.moveTo(50,50);
+            myRectangle.strokeStyle ="blue";
+            myRectangle.lineTo(this.width+50,50);
+            myRectangle.lineTo(this.width+50,this.height+50);
+            myRectangle.lineTo(50,this.height+50);
+            myRectangle.lineTo(50,50);
+            myRectangle.stroke();
+        }
+    }
+    let rectangle1 = new rectangle(200,100);
+    rectangle1.drawRectangle();
+    rectangle1.width =250;
+    rectangle1.height=150;
+    document.getElementById("rs").innerHTML="Diện tích của hình chữ nhật được khởi tạo là " + rectangle1.getArea() + " ;Chu vi là "+ rectangle1.getPerimeter();
+</script>
+</body>
+</html>
