@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<p id="screen"></p>
+<script>
+    class Mobilephone {
+        batteryStatus;
+        draft;
+        inbox;
+        sentMessage;
+        isOn;
+
+        constructor(battery, draft, inbox, sent, status) {
+            this.batteryStatus = battery;
+            this.draft = draft;
+            this.inbox = inbox;
+            this.sentMessage = sent;
+            this.isOn = status;
+        }
+
+        checkStatus() {
+            if (this.isOn === true) {
+                alert("This mobilephone is on ")
+            }
+            this.batteryStatus--;
+            if (this.batteryStatus === 0) {
+                this.isOn = false;
+            }
+        }
+
+        TurnOnOff() {
+            if (this.isOn === true) {
+                this.isOn = false;
+            } else {
+                this.isOn = true;
+            }
+            this.batteryStatus--;
+            if (this.batteryStatus === 0) {
+                this.isOn = false;
+            }
+        }
+
+        charge() {
+            this.batteryStatus = 100;
+        }
+
+        writeMessage() {
+            this.draft = prompt("Nhập vào nội dung tin nhắn ");
+            this.batteryStatus--;
+            if (this.batteryStatus === 0) {
+                this.isOn = false;
+            }
+        }
+
+        receiveMessage(mes) {
+            this.inbox.push(mes);
+            this.batteryStatus--;
+            if (this.batteryStatus === 0) {
+                this.isOn = false;
+            }
+        }
+        sendMes(someOne,message){
+            this.sentMessage.push(message);
+            someOne.receiveMessage(message);
+            this.batteryStatus--;
+            if (this.batteryStatus === 0) {
+                this.isOn = false;
+            }
+        }
+        checkInbox(){
+            let data = ""
+            for (let i = this.inbox.length; i >= 0 ; i--) {
+               data += this.inbox[i] + "<br>"
+            }
+            document.getElementById("screen").innerHTML = data;
+            this.batteryStatus--;
+            if (this.batteryStatus === 0) {
+                this.isOn = false;
+            }
+        }
+        checkSentMes(){
+            let data = ""
+            for (let i = this.sentMessage.length; i >= 0 ; i--) {
+                data += this.sentMessage[i] + "<br>"
+            }
+            document.getElementById("screen").innerHTML = data;
+            this.batteryStatus--;
+            if (this.batteryStatus === 0) {
+                this.isOn = false;
+            }
+        }
+    }
+</script>
+</body>
+</html>
