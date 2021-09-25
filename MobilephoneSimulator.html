@@ -3,8 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+<!--    <style>-->
+<!--        .nokia{-->
+<!--            width: 50%;-->
+<!--            height: 700px;-->
+<!--            background: chartreuse;-->
+<!--            float: left;-->
+<!--        }-->
+<!--        .iphone{-->
+<!--            width: 50%;-->
+<!--            height: 700px;-->
+<!--            background: #ffdd00;-->
+<!--            float: left;-->
+<!--        }-->
+<!--    </style>-->
 </head>
 <body>
+<!--<div class="nokia">-->
+<!--    <button onclick="th"></button>-->
+<!--    <button></button>-->
+<!--    <button></button>-->
+<!--    <button></button>-->
+<!--    <button></button>-->
+<!--    <button></button>-->
+<!--    <button></button>-->
+<!--</div>-->
+<!--<div class="iphone"></div>-->
 <p id="screen"></p>
 <script>
     class Mobilephone {
@@ -26,10 +50,7 @@
             if (this.isOn === true) {
                 alert("This mobilephone is on ")
             }
-            this.batteryStatus--;
-            if (this.batteryStatus === 0) {
-                this.isOn = false;
-            }
+            this.checkBattery();
         }
 
         TurnOnOff() {
@@ -48,52 +69,63 @@
             this.batteryStatus = 100;
         }
 
-        writeMessage() {
-            this.draft = prompt("Nhập vào nội dung tin nhắn ");
-            this.batteryStatus--;
-            if (this.batteryStatus === 0) {
-                this.isOn = false;
+        writeMessage(mes) {
+            if (this.isOn === true) {
+                this.draft = mes;
+                this.checkBattery();
             }
         }
 
         receiveMessage(mes) {
-            this.inbox.push(mes);
-            this.batteryStatus--;
-            if (this.batteryStatus === 0) {
-                this.isOn = false;
+            if (this.isOn === true) {
+                this.inbox.push(mes);
+                this.checkBattery();
             }
         }
-        sendMes(someOne,message){
-            this.sentMessage.push(message);
-            someOne.receiveMessage(message);
-            this.batteryStatus--;
-            if (this.batteryStatus === 0) {
-                this.isOn = false;
+
+
+        sendMes(someOne, message) {
+            if (this.isOn === true) {
+                this.sentMessage.push(message);
+                someOne.receiveMessage(message);
+                this.checkBattery();
             }
         }
-        checkInbox(){
-            let data = ""
-            for (let i = this.inbox.length; i >= 0 ; i--) {
-               data += this.inbox[i] + "<br>"
-            }
-            document.getElementById("screen").innerHTML = data;
-            this.batteryStatus--;
-            if (this.batteryStatus === 0) {
-                this.isOn = false;
+
+        checkInbox() {
+            if (this.isOn === true) {
+                let data = ""
+                for (let i = this.inbox.length -1; i >= 0; i--) {
+                    data += this.inbox[i] + "<br>"
+                }
+                document.getElementById("screen").innerHTML = data;
+                this.checkBattery();
             }
         }
-        checkSentMes(){
-            let data = ""
-            for (let i = this.sentMessage.length; i >= 0 ; i--) {
-                data += this.sentMessage[i] + "<br>"
+
+        checkSentMes() {
+            if (this.isOn === true) {
+                let data = ""
+                for (let i = this.sentMessage.length; i >= 0; i--) {
+                    data += this.sentMessage[i] + "<br>"
+                }
+                document.getElementById("screen").innerHTML = data;
+                this.checkBattery();
             }
-            document.getElementById("screen").innerHTML = data;
+        }
+        checkBattery(){
             this.batteryStatus--;
             if (this.batteryStatus === 0) {
                 this.isOn = false;
             }
         }
     }
+    let nokia = new Mobilephone(100,"",[],[],true)
+    let iphone = new Mobilephone(100,"",[],[],true)
+    nokia.writeMessage("Hello");
+    nokia.sendMes(iphone,nokia.draft);
+    iphone.checkInbox();
+
 </script>
 </body>
 </html>
